@@ -1,1 +1,17 @@
 // @MIXINS
+
+@mixin css-reset {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@mixin img-reset {
+    max-width: 100%;
+    display: block;
+}
+
+@mixin d-flex-align-center {
+    display: flex;
+    align-items: center;
+}
