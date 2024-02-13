@@ -12,7 +12,7 @@
   4. Voto
 
 
-  
+
 -->
 
 
@@ -36,12 +36,19 @@ import { store } from './store';
     },
     methods: {
       getMovies() {
-        axios.get(`${store.apiUrlMovies}${store.apiKey}&query=${store.searchText}`).then( res => {
+        const title = store.searchText.replace(/ /g, '%20').toLowerCase();
+
+        console.log(title);
+
+        axios.get(`${store.apiUrlMovies}${store.apiKey}&query=${title}`).then( res => {
           console.log(res.data.results);
-          console.log(`${store.apiUrlMovies}${store.apiKey}&query=${store.searchText}`);
+          console.log(`${store.apiUrlMovies}${store.apiKey}&query=${title}`);
           store.cards = res.data.results;
         } )
-      }
+      },
+      // convertTitle(str) {
+      //   return str.replace(/ /g, '%20').toLowerCase();
+      // }
     },
     mounted() {
       // this.getMovies()
