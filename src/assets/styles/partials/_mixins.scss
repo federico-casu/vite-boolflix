@@ -11,6 +11,10 @@
     display: block;
 }
 
+@mixin d-flex {
+    display: flex;
+}
+
 @mixin d-flex-align-center {
     display: flex;
     align-items: center;

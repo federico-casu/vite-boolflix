@@ -42,7 +42,12 @@
 
             <!-- Search bar -->
             <div id="search">
-                <input v-show="searchBarDisplay" v-model="store.searchText" type="text" placeholder="Search..">
+                <input 
+                v-show="searchBarDisplay" 
+                v-model="store.searchText" 
+                type="text" 
+                placeholder="Search.."
+                @keyup.enter="$emit('search')">
                 <i @click="changeDisplay" class="fa-solid fa-magnifying-glass"></i>
             </div>
         </div>
@@ -111,7 +116,7 @@
                     border: 0;
                     background-color: transparent;
                     border-bottom: 1px solid white;
-                    border-radius: 10px;
+                    // border-radius: 10px;
                     padding: 10px;
                     color: white;
                 }
