@@ -95,8 +95,12 @@
             <span>
                 <span
                 id="stars" 
-                v-for="items in Math.floor((propsElement.vote_average) / 2)+1" >
+                v-for="items in Math.round((propsElement.vote_average) / 2)" >
                     <i class="fa-solid fa-star"></i>
+                </span>
+                <span
+                v-for="items in (5 - Math.round((propsElement.vote_average) / 2))">
+                    <i class="fa-regular fa-star"></i>
                 </span>
             </span>
 
