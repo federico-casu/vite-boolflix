@@ -9,7 +9,7 @@
         data() {
             return {
                 store,
-                menu: [ 'TV Shows', 'Movies', 'My List' ],
+                menu: [ 'TV Shows', 'Movies' ],
                 searchBarDisplay: false
             }
         },
@@ -40,7 +40,7 @@
                 <!-- Menu -->
                 <nav>
                     <ul>
-                        <li @click="changeList(item)" v-for="(item, index) in menu" >{{ item }}</li>
+                        <li @click="changeList(item)" :class="store.currentList === item ? 'active' : ''" v-for="(item, index) in menu" >{{ item }}</li>
                     </ul>
                 </nav>
             </div>
@@ -148,6 +148,10 @@
             
         }
     
+    }
+
+    .active {
+        color: red;
     }
     
 </style>
