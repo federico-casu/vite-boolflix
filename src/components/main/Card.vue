@@ -24,28 +24,44 @@
                 //     return str
                 // }
 
-                if ( store.currentList === 'Movies' ) {
-                    switch (str) {
-                        case 'en':
-                            return 'us'
-                        case 'ja':
-                            return 'jp'
-                        case 'he':
-                            return 'il'
-                        case 'zh':
-                            return 'cn'
-                        case 'ko':
-                            return 'kr'
-                        case 'hi':
-                            return 'in'
-                        default:
-                            return str
-                    }
-                } else {
-                    return str;
-                }
+                // if ( store.currentList === 'Movies' ) {
+                //     switch (str) {
+                //         case 'en':
+                //             return 'us'
+                //         case 'ja':
+                //             return 'jp'
+                //         case 'he':
+                //             return 'il'
+                //         case 'zh':
+                //             return 'cn'
+                //         case 'ko':
+                //             return 'kr'
+                //         case 'hi':
+                //             return 'in'
+                //         default:
+                //             return str
+                //     }
+                // } else {
+                //     return str;
+                // }
 
-            } 
+                switch (str) {
+                    case 'en':
+                        return 'us'
+                    case 'ja':
+                        return 'jp'
+                    case 'he':
+                        return 'il'
+                    case 'zh':
+                        return 'cn'
+                    case 'ko':
+                        return 'kr'
+                    case 'hi':
+                        return 'in'
+                    default:
+                        return str
+                } 
+            }
         }
     }
 </script>
@@ -71,7 +87,7 @@
 
             <!-- Paese d'origine o Lingua -->
             <figure id="lang-flags">
-                <img v-if="propsElement.origin_country" v-for="(item, index) in propsElement.origin_country" :key="index" width="24" :src="`https://flagsapi.com/${item}/shiny/24.png`" :alt="item">
+                <img v-if="propsElement.origin_country && propsElement.origin_country.length != 0" v-for="(item, index) in propsElement.origin_country" :key="index" width="24" :src="`https://flagsapi.com/${item}/shiny/24.png`" :alt="item">
                 <img v-else width="24" :src="`https://flagsapi.com/${this.checkLang(propsElement.original_language).toUpperCase()}/shiny/24.png`" :alt="propsElement.original_language">
             </figure>
 
