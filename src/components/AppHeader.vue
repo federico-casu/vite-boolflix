@@ -9,7 +9,7 @@
         data() {
             return {
                 store,
-                menu: [ 'TV Shows', 'Movies', 'Recently Added', 'My List' ],
+                menu: [ 'TV Shows', 'Movies', 'My List' ],
                 searchBarDisplay: false
             }
         },

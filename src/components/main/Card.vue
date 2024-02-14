@@ -72,7 +72,7 @@
     <div class="card">
         <!-- immagine di copertina -->
         <figure>
-            <img :src="`${store.apiUrlImages}${propsElement.poster_path}`" :alt="propsElement.title">
+            <img :src="propsElement.poster_path != null ? `${store.apiUrlImages}${propsElement.poster_path}` : `${`../../src/assets/img/cover_image_unavailable.png`}`" :alt="propsElement.title">
         </figure>
 
         <!-- Info -->
