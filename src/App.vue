@@ -35,50 +35,78 @@ import { store } from './store';
       }
     },
     methods: {
-      getMovies() {
-        const title = store.searchText.replace(/ /g, '%20').toLowerCase();
+      search() {
+        const apiParams = {
+          method: 'GET',
+          params: {
+            api_key: store.apiKey,
+            query: store.searchText.replace(/ /g, '%20').toLowerCase(),
+            language: 'it-IT'
+          }
+        }
 
-        console.log(title);
+        this.getSeries(apiParams);
+        this.getMovies(apiParams);
+      },
+      getMovies(apiParams) {
+        // const title = store.searchText.replace(/ /g, '%20').toLowerCase();
 
-        axios.get(`${store.apiUrlMovies}${store.apiKey}&query=${title}`).then( res => {
+        // console.log(title);
+
+        // axios.get(`${store.apiUrlMovies}${store.apiKey}&query=${title}`).then( res => {
+        //   console.log(res.data.results);
+        //   console.log(`${store.apiUrlMovies}${store.apiKey}&query=${title}`);
+        //   store.movies = res.data.results;
+        // } )
+
+        apiParams.url = store.apiUrlMovies;
+
+        axios
+        .request(apiParams)
+        .then( res => {
           console.log(res.data.results);
-          console.log(`${store.apiUrlMovies}${store.apiKey}&query=${title}`);
-          store.cards = res.data.results;
+          store.movies = res.data.results;
+        } )
+        .catch( err => {
+          console.error(err);
         } )
       },
-      // convertTitle(str) {
-      //   return str.replace(/ /g, '%20').toLowerCase();
-      // }
-    },
-    mounted() {
-      // this.getMovies()
+      getSeries(apiParams) {
+        apiParams.url = store.apiUrlSeries;
+
+        axios
+        .request(apiParams)
+        .then( res => {
+          console.log(res.data.results);
+          store.series = res.data.results;
+        } )
+        .catch( err => {
+          console.error(err);
+        } )
+      }
     }
   }
 
 </script>
 
 <template>
-
   <div id="web-app">
-    <AppHeader @search="getMovies" />
+    <AppHeader @search="search" />
     <AppMain />
   </div>
-
 </template>
 
 <style lang="scss">
+@use './assets/styles/general.scss' as *;
+@use './assets/styles/partials/mixins.scss' as *;
+@use './assets/styles/partials/variables.scss' as *;
 
-  @use './assets/styles/general.scss' as *;
-  @use './assets/styles/partials/mixins.scss' as *;
-  @use './assets/styles/partials/variables.scss' as *;
+#web-app {
+  height: 100vh;
 
-  #web-app {
-    height: 100vh;
+  border: 2px solid red;
+  background-color: #121212;
 
-    border: 2px solid red;
-    background-color: #121212;
-
-    color: white;
-  }
-
+  color: white;
+}
 </style>

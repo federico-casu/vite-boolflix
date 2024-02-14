@@ -24,18 +24,27 @@
                 //     return str
                 // }
 
-                switch (str) {
-                    case 'en':
-                        return 'us'
-                    case 'ja':
-                        return 'jp'
-                    case 'he':
-                        return 'il'
-                    case 'zh':
-                        return 'cn'
-                    default:
-                        return str
+                if ( store.currentList === 'Movies' ) {
+                    switch (str) {
+                        case 'en':
+                            return 'us'
+                        case 'ja':
+                            return 'jp'
+                        case 'he':
+                            return 'il'
+                        case 'zh':
+                            return 'cn'
+                        case 'ko':
+                            return 'kr'
+                        case 'hi':
+                            return 'in'
+                        default:
+                            return str
+                    }
+                } else {
+                    return str;
                 }
+
             } 
         }
     }
@@ -45,15 +54,28 @@
 <template>
     <!-- html componente -->
     <div class="card">
+        <!-- immagine di copertina -->
         <figure>
             <img :src="`${store.apiUrlImages}${propsElement.poster_path}`" :alt="propsElement.title">
         </figure>
 
+        <!-- Info -->
         <div class="card-info">
-            <h4>{{ propsElement.title }}</h4>
-            <p>{{ propsElement.original_title }}</p>
-            <!-- <span>{{ propsElement.original_language }}</span> -->
-            <img width="24" :src="`https://flagsapi.com/${this.checkLang(propsElement.original_language).toUpperCase()}/shiny/24.png`" :alt="propsElement.original_language">
+            <!-- Titolo -->
+            <h4>{{ propsElement.title ? propsElement.title : propsElement.name }}</h4>
+
+            <!-- Titolo originale -->
+            <p v-if="propsElement.title != propsElement.original_title || propsElement.name != propsElement.original_name">
+                {{ propsElement.original_title ? propsElement.original_title : propsElement.original_name }}
+            </p>
+
+            <!-- Paese d'origine o Lingua -->
+            <figure id="lang-flags">
+                <img v-if="propsElement.origin_country" v-for="(item, index) in propsElement.origin_country" :key="index" width="24" :src="`https://flagsapi.com/${item}/shiny/24.png`" :alt="item">
+                <img v-else width="24" :src="`https://flagsapi.com/${this.checkLang(propsElement.original_language).toUpperCase()}/shiny/24.png`" :alt="propsElement.original_language">
+            </figure>
+
+            <!-- Voto -->
             <span>
                 <span
                 id="stars" 
@@ -61,7 +83,11 @@
                     <i class="fa-solid fa-star"></i>
                 </span>
             </span>
-            <!-- <span>{{ propsElement.vote_average }}</span> -->
+
+            <!-- Overview -->
+            <p id="overview">
+                {{ propsElement.overview }}
+            </p>
         </div>
     </div>
     
@@ -75,8 +101,8 @@
     @use '../../assets/styles/partials/mixins' as *;
 
     .card {
-        flex-basis: calc(100% / 7 - (60px / 7));
-        max-width: calc(100% / 7 - (60px / 7));
+        flex-basis: calc(100% / 5 - (40px / 5));
+        max-width: calc(100% / 5 - (40px / 5));
         @include d-flex;
         flex-direction: column;
         gap: 0.5rem;
@@ -106,8 +132,18 @@
             right: 0;
             background-color: rgba($color: #121212, $alpha: 0.5);
 
+            #lang-flags {
+                @include d-flex;
+                align-items: center;
+                gap: 10px;
+            }
+
             #stars {
                 color: yellow;
+            }
+
+            #overview {
+                overflow: auto;
             }
         }
     }

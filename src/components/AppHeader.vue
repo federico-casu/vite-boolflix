@@ -14,8 +14,13 @@
             }
         },
         methods: {
-            changeDisplay() {
-                this.searchBarDisplay ? this.searchBarDisplay = false : this.searchBarDisplay = true
+            // changeDisplay() {
+            //     this.searchBarDisplay ? this.searchBarDisplay = false : this.searchBarDisplay = true
+            // },
+            changeList(list) {
+                if ( list === 'TV Shows' || list === 'Movies' ) {
+                    store.currentList = list
+                }
             }
         }
     }
@@ -35,7 +40,7 @@
                 <!-- Menu -->
                 <nav>
                     <ul>
-                        <li v-for="(item, index) in menu" >{{ item }}</li>
+                        <li @click="changeList(item)" v-for="(item, index) in menu" >{{ item }}</li>
                     </ul>
                 </nav>
             </div>
@@ -43,12 +48,12 @@
             <!-- Search bar -->
             <div id="search">
                 <input 
-                v-show="searchBarDisplay" 
+                 
                 v-model="store.searchText" 
                 type="text" 
                 placeholder="Search.."
                 @keyup.enter="$emit('search')">
-                <i @click="changeDisplay" class="fa-solid fa-magnifying-glass"></i>
+                <i @click="$emit('search')" class="fa-solid fa-magnifying-glass"></i>
             </div>
         </div>
     </header>
@@ -96,6 +101,11 @@
                         li {
                             list-style-type: none;
                             font-size: 1.3rem;
+
+                            &:hover {
+                                color: red;
+                                cursor: pointer;
+                            }
                         }
                     }
                 }
