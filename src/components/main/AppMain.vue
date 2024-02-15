@@ -30,11 +30,11 @@ export default {
     <main>
         <!-- Lista Film -->
         <div v-if="store.currentList === 'Movies' && store.movies.length != 0" class="container card-container">
-            <Card v-for="(element, index) in store.movies" :key="index" :props-element="element" />
+            <Card v-show="element.genres.includes(store.currentFilterGenre) || store.currentFilterGenre == ''" v-for="(element, index) in store.movies" :key="index" :props-element="element" />
         </div>
         <!-- Lista Serie TV -->
         <div v-else-if="store.currentList === 'TV Shows' && store.series.length != 0" class="container card-container">
-            <Card v-for="(element, index) in store.series" :key="index" :props-element="element" />
+            <Card v-show="element.genres.includes(store.currentFilterGenre) || store.currentFilterGenre == ''" v-for="(element, index) in store.series" :key="index" :props-element="element" />
         </div>
         <div v-else id="nothing-to-see" class="container card-container"></div>
     </main>

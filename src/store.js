@@ -12,5 +12,8 @@ export const store = reactive({
     searchText: '',
     movies: [],
     series: [],
-    currentList: 'Movies'
+    allMovieGenres: [],
+    allSeriesGenres: [],
+    currentList: 'Movies',
+    currentFilterGenre: ''
 })

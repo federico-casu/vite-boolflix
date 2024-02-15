@@ -45,6 +45,16 @@
                 </nav>
             </div>
 
+            <!-- Filter by genre -->
+            <div id="filter">
+                <label for="genre-filter">Filter by genre: </label>
+                <select v-model="store.currentFilterGenre" name="genre-filter" id="genre-filter">
+                    <option value=""></option>
+                    <option v-show="store.currentList == 'Movies'" v-for="(genre, index) in store.allMovieGenres" :key="index" :value="genre">{{ genre }}</option>
+                    <option v-show="store.currentList == 'TV Shows'" v-for="(genre, index) in store.allSeriesGenres" :key="index" :value="genre">{{ genre }}</option>
+                </select>
+            </div>
+
             <!-- Search bar -->
             <div id="search">
                 <input 

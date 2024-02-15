@@ -96,7 +96,7 @@
             <!-- Generi -->
             <span v-if="propsElement.genres && propsElement.genres.length != 0">
                 <strong>Genres: </strong>
-                <span v-for="(genre, index) in propsElement.genres" :key="index">{{ genre.name }}<span v-if="index != propsElement.genres.length-1">, </span></span>
+                <span v-for="(genre, index) in propsElement.genres" :key="index">{{ genre }}<span v-if="index != propsElement.genres.length-1">, </span></span>
             </span>
 
             <!-- Overview -->

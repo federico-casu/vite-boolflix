@@ -80,11 +80,21 @@ import { store } from './store';
       },
       getMovieGenres(movie, apiParams) {
         apiParams.url = `${store.apiUrlMoviesGenres}/${movie.id}`;
+        store.allMovieGenres = [];
+        movie.genres = [];
 
         axios
         .request(apiParams)
         .then( res => {
-          movie.genres = res.data.genres;
+          res.data.genres.forEach(element => {
+            movie.genres.push(element.name);
+          });
+          // movie.genres = res.data.genres;
+          movie.genres.forEach(element => {
+            if (!store.allMovieGenres.includes(element)) {
+              store.allMovieGenres.push(element);
+            }
+          });
         } )
         .catch( err => {
           console.error(err);
@@ -123,12 +133,22 @@ import { store } from './store';
       },
       getSeriesGenres(tvShow, apiParams) {
         apiParams.url = `${store.apiUrlSeriesCast}/${tvShow.id}`;
+        store.allSeriesGenres = [];
+        tvShow.genres = [];
 
         axios
         .request(apiParams)
         .then( res => {
           console.log(res);
-          tvShow.genres = res.data.genres;
+          res.data.genres.forEach(element => {
+            tvShow.genres.push(element.name);
+          });
+          // tvShow.genres = res.data.genres;
+          tvShow.genres.forEach(element => {
+            if (!store.allSeriesGenres.includes(element)) {
+              store.allSeriesGenres.push(element);
+            }
+          });
         } )
         .catch( err => {
           console.error(err);
