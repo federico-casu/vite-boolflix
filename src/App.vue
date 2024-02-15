@@ -49,12 +49,6 @@ import { store } from './store';
         this.getMovies(apiParams);
       },
       getMovies(apiParams) {
-        // axios.get(`${store.apiUrlMovies}${store.apiKey}&query=${title}`).then( res => {
-        //   console.log(res.data.results);
-        //   console.log(`${store.apiUrlMovies}${store.apiKey}&query=${title}`);
-        //   store.movies = res.data.results;
-        // } )
-
         apiParams.url = store.apiUrlMovies;
 
         axios
@@ -62,14 +56,11 @@ import { store } from './store';
         .then( res => {
           console.log(res.data);
           store.movies = res.data.results;
-          // res.data.results.forEach(element => {
-          //   store.movies.push({movie: element})
-          // });
+          
           store.movies.forEach(element => {
             this.getMovieCast(element, apiParams);
             this.getMovieGenres(element, apiParams);
           });
-          // this.getMovieCast(store.movies[0], apiParams);
         } )
         .catch( err => {
           console.error(err);
@@ -77,12 +68,10 @@ import { store } from './store';
       },
       getMovieCast(movie, apiParams) {
         apiParams.url = `${store.apiUrlMoviesCast}/${movie.id}/credits`;
-        // apiParams.params.movie_id = movie.id;
 
         axios
         .request(apiParams)
         .then( res => {
-          // console.log(res.data.cast.slice(0, 5));
           movie.cast = res.data.cast.slice(0, 5);
         } )
         .catch( err => {
@@ -91,7 +80,6 @@ import { store } from './store';
       },
       getMovieGenres(movie, apiParams) {
         apiParams.url = `${store.apiUrlMoviesGenres}/${movie.id}`;
-        // apiParams.params.movie_id = movie.id;
 
         axios
         .request(apiParams)
@@ -110,6 +98,37 @@ import { store } from './store';
         .then( res => {
           console.log(res.data.results);
           store.series = res.data.results;
+
+          store.series.forEach(element => {
+            this.getSeriesCast(element, apiParams);
+            this.getSeriesGenres(element, apiParams);
+          });
+        } )
+        .catch( err => {
+          console.error(err);
+        } )
+      },
+      getSeriesCast(tvShow, apiParams) {
+        apiParams.url = `${store.apiUrlSeriesCast}/${tvShow.id}/aggregate_credits`;
+
+        axios
+        .request(apiParams)
+        .then( res => {
+          console.log(res);
+          tvShow.cast = res.data.cast.slice(0, 5);
+        } )
+        .catch( err => {
+          console.error(err);
+        } )
+      },
+      getSeriesGenres(tvShow, apiParams) {
+        apiParams.url = `${store.apiUrlSeriesCast}/${tvShow.id}`;
+
+        axios
+        .request(apiParams)
+        .then( res => {
+          console.log(res);
+          tvShow.genres = res.data.genres;
         } )
         .catch( err => {
           console.error(err);
