@@ -49,10 +49,6 @@ import { store } from './store';
         this.getMovies(apiParams);
       },
       getMovies(apiParams) {
-        // const title = store.searchText.replace(/ /g, '%20').toLowerCase();
-
-        // console.log(title);
-
         // axios.get(`${store.apiUrlMovies}${store.apiKey}&query=${title}`).then( res => {
         //   console.log(res.data.results);
         //   console.log(`${store.apiUrlMovies}${store.apiKey}&query=${title}`);
@@ -64,8 +60,29 @@ import { store } from './store';
         axios
         .request(apiParams)
         .then( res => {
-          console.log(res.data.results);
+          console.log(res.data);
           store.movies = res.data.results;
+          // res.data.results.forEach(element => {
+          //   store.movies.push({movie: element})
+          // });
+          store.movies.forEach(element => {
+            this.getMovieCast(element, apiParams);
+          });
+          // this.getMovieCast(store.movies[0], apiParams);
+        } )
+        .catch( err => {
+          console.error(err);
+        } )
+      },
+      getMovieCast(movie, apiParams) {
+        apiParams.url = `${store.apiUrlMoviesCast}/${movie.id}/credits`;
+        // apiParams.params.movie_id = movie.id;
+
+        axios
+        .request(apiParams)
+        .then( res => {
+          // console.log(res.data.cast.slice(0, 5));
+          movie.cast = res.data.cast.slice(0, 5);
         } )
         .catch( err => {
           console.error(err);

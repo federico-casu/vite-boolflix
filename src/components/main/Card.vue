@@ -18,33 +18,6 @@
         },
         methods: {
             checkLang(str) {
-                // if ( str === 'en' ) {
-                //     return 'us'
-                // } else {
-                //     return str
-                // }
-
-                // if ( store.currentList === 'Movies' ) {
-                //     switch (str) {
-                //         case 'en':
-                //             return 'us'
-                //         case 'ja':
-                //             return 'jp'
-                //         case 'he':
-                //             return 'il'
-                //         case 'zh':
-                //             return 'cn'
-                //         case 'ko':
-                //             return 'kr'
-                //         case 'hi':
-                //             return 'in'
-                //         default:
-                //             return str
-                //     }
-                // } else {
-                //     return str;
-                // }
-
                 switch (str) {
                     case 'en':
                         return 'us'
@@ -87,8 +60,18 @@
 
             <!-- Paese d'origine o Lingua -->
             <figure id="lang-flags">
-                <img v-if="propsElement.origin_country && propsElement.origin_country.length != 0" v-for="(item, index) in propsElement.origin_country" :key="index" width="24" :src="`https://flagsapi.com/${item}/shiny/24.png`" :alt="item">
-                <img v-else width="24" :src="`https://flagsapi.com/${this.checkLang(propsElement.original_language).toUpperCase()}/shiny/24.png`" :alt="propsElement.original_language">
+                <img 
+                v-if="propsElement.origin_country && propsElement.origin_country.length != 0" 
+                v-for="(item, index) in propsElement.origin_country" 
+                :key="index" 
+                width="24" 
+                :src="`https://flagsapi.com/${item}/shiny/24.png`" 
+                :alt="item">
+                <img 
+                v-else 
+                width="24" 
+                :src="`https://flagsapi.com/${this.checkLang(propsElement.original_language).toUpperCase()}/shiny/24.png`" 
+                :alt="propsElement.original_language">
             </figure>
 
             <!-- Voto -->
@@ -104,9 +87,15 @@
                 </span>
             </span>
 
+            <!-- Cast -->
+            <span v-if="propsElement.cast">
+                <strong>Cast: </strong>
+                <span v-for="(actor, index) in propsElement.cast" :key="index">{{ actor.name }}<span v-if="index != propsElement.cast.length-1">, </span></span>
+            </span>
+
             <!-- Overview -->
-            <p id="overview">
-                {{ propsElement.overview }}
+            <p v-if="propsElement.overview" id="overview">
+               <strong>Overview: </strong> {{ propsElement.overview }}
             </p>
         </div>
     </div>
@@ -136,6 +125,15 @@
 
         &:hover .card-info {
             @include d-flex;
+        }
+
+        > figure {
+            width: 100%;
+            height: 100%;
+            img {
+                height:100%;
+                object-fit: cover;
+            }
         }
 
         .card-info {
