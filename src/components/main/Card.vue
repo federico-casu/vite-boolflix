@@ -88,9 +88,15 @@
             </span>
 
             <!-- Cast -->
-            <span v-if="propsElement.cast">
+            <span v-if="propsElement.cast && propsElement.cast.length != 0">
                 <strong>Cast: </strong>
                 <span v-for="(actor, index) in propsElement.cast" :key="index">{{ actor.name }}<span v-if="index != propsElement.cast.length-1">, </span></span>
+            </span>
+
+            <!-- Generi -->
+            <span v-if="propsElement.genres && propsElement.genres.length != 0">
+                <strong>Genres: </strong>
+                <span v-for="(genre, index) in propsElement.genres" :key="index">{{ genre.name }}<span v-if="index != propsElement.genres.length-1">, </span></span>
             </span>
 
             <!-- Overview -->
@@ -143,6 +149,8 @@
             padding: 0.8rem;
             position: absolute;
 
+            overflow: auto;
+
             height: 100%;
 
             top: 0;
@@ -160,9 +168,9 @@
                 color: yellow;
             }
 
-            #overview {
-                overflow: auto;
-            }
+            // #overview {
+            //     overflow: auto;
+            // }
         }
     }
     

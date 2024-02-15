@@ -67,6 +67,7 @@ import { store } from './store';
           // });
           store.movies.forEach(element => {
             this.getMovieCast(element, apiParams);
+            this.getMovieGenres(element, apiParams);
           });
           // this.getMovieCast(store.movies[0], apiParams);
         } )
@@ -83,6 +84,19 @@ import { store } from './store';
         .then( res => {
           // console.log(res.data.cast.slice(0, 5));
           movie.cast = res.data.cast.slice(0, 5);
+        } )
+        .catch( err => {
+          console.error(err);
+        } )
+      },
+      getMovieGenres(movie, apiParams) {
+        apiParams.url = `${store.apiUrlMoviesGenres}/${movie.id}`;
+        // apiParams.params.movie_id = movie.id;
+
+        axios
+        .request(apiParams)
+        .then( res => {
+          movie.genres = res.data.genres;
         } )
         .catch( err => {
           console.error(err);
