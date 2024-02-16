@@ -46,8 +46,8 @@
 
 <template>
     <!-- html componente -->
-    <div @click="toggleCard()" @mouseleave="flipped ? toggleCard() : ''" class="card">
-        <transition name="flip">
+    <div @click="[toggleCard(), store.currentTrailer = propsElement.trailer]" @mouseleave="flipped ? toggleCard() : ''" class="card">
+        <Transition name="flip">
             <div :key="flipped">
                 <!-- immagine di copertina -->
                 <figure v-show="!flipped" class="card-cover">
@@ -111,7 +111,7 @@
                     </p>
                 </div>
             </div>
-        </transition>
+        </Transition>
 
     </div>
     
@@ -160,10 +160,15 @@
             @include d-flex;
         }
 
-        > div, .card-cover {
+        > div, 
+        .card-cover {
             width: 100%;
             height: 100%;
+        }
+
+        .card-cover {
             img {
+                width: 100%;
                 height:100%;
                 object-fit: cover;
             }

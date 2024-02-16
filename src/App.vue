@@ -41,7 +41,8 @@ import { store } from './store';
           params: {
             api_key: store.apiKey,
             query: store.searchText.replace(/ /g, '%20').toLowerCase(),
-            language: 'it-IT'
+            // language: 'it-IT'en-US
+            language: 'en-US'
           }
         }
 
@@ -60,6 +61,7 @@ import { store } from './store';
           store.movies.forEach(element => {
             this.getMovieCast(element, apiParams);
             this.getMovieGenres(element, apiParams);
+            this.getMovieTrailer(element, apiParams);
           });
         } )
         .catch( err => {
@@ -95,6 +97,28 @@ import { store } from './store';
               store.allMovieGenres.push(element);
             }
           });
+        } )
+        .catch( err => {
+          console.error(err);
+        } )
+      },
+      getMovieTrailer(movie, apiParams) {
+        apiParams.url = `${store.apiUrlMoviesTrailer}/${movie.id}/videos`;
+
+        axios
+        .request(apiParams)
+        .then( res => {
+          const trailers = res.data.results;
+          movie.trailer = '';
+
+          console.log(trailers);
+
+          for (let i = trailers.length-1; i >= 0; i--) {
+            if ( trailers[i].official ) {
+              movie.trailer = trailers[i].key;
+              return;
+            }
+          }
         } )
         .catch( err => {
           console.error(err);

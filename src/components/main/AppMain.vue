@@ -28,6 +28,12 @@ export default {
     <!-- html componente -->
     <!-- Rappresentazione delle liste -->
     <main>
+
+        <!-- Overview + trailer -->
+        <div id="overview-trailer" class="container card-container">
+            <iframe id="trailer" v-if="store.currentTrailer" :src="`${store.iframeTrailerLink}${store.currentTrailer}`" frameborder="0" allowfullscreen="true" width="1080" height="600"></iframe>
+        </div>
+
         <!-- Lista Film -->
         <div v-if="store.currentList === 'Movies' && store.movies.length != 0" class="container card-container">
             <Card v-show="element.genres.includes(store.currentFilterGenre) || store.currentFilterGenre == ''" v-for="(element, index) in store.movies" :key="index" :props-element="element" />
@@ -51,6 +57,10 @@ main {
     width: 100%;
     border: 1px solid blue;
     overflow: auto;
+
+    #trailer {
+        width: 100%;
+    }
 
     .card-container {
         border: 1px dashed yellow;

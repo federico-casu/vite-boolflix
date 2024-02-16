@@ -9,11 +9,15 @@ export const store = reactive({
     apiUrlSeriesCast: 'https://api.themoviedb.org/3/tv',
     apiUrlMoviesCast: 'https://api.themoviedb.org/3/movie', // .id, .cast
     apiUrlMoviesGenres: 'https://api.themoviedb.org/3/movie',  // .id, .genres (ogni genere ha .id e .name)
+    apiUrlMoviesTrailer: 'https://api.themoviedb.org/3/movie',
+    apiUrlSeriesTrailer: 'https://api.themoviedb.org/3/tv/{series_id}/videos',
+    iframeTrailerLink: 'https://www.youtube.com/embed/',  // va aggiunta dinamicamente la key
     searchText: '',
     movies: [],
     series: [],
     allMovieGenres: [],
     allSeriesGenres: [],
     currentList: 'Movies',
-    currentFilterGenre: ''
+    currentFilterGenre: '',
+    currentTrailer: '' 
 })
