@@ -154,6 +154,21 @@
                 margin-right: 1rem;
             }
 
+            #filter {
+
+                height: 100%;
+                @include d-flex-align-center;
+                gap: 0.5rem;
+
+                #genre-filter {
+                    background-color: transparent;
+                    border: 0;
+                    border-bottom: 1px solid white;
+                    color: white;
+                    height: 50%;
+                }
+            }
+
 
             
         }
